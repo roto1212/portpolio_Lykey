@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- DOCTYPE이 mapper인 xml 파일은 실행할 sql 명령을 입력한다. -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Luce.dao.LyKeyDAO">
+	<!-- signUp 회원 정보 등록 -->
+	<insert id="insertMember" parameterType="vo">
+		insert into lykey (email, pw) values (#{email}, #{pw})
+	</insert>
+	<!-- signUp 이메일을 테이블에서 조회한다. -->
+	<select id="emailChk" parameterType="String" resultType="String">
+		select email from lykey where email = #{email}
+	</select>
+	<!-- signIn 로그인 정보를 확인하고 확인 된 경우 이메일 정보를 반환한다. -->
+	<select id="signChk" parameterType="vo" resultType="String">
+		select email from lykey where email = #{email} and pw = #{pw}
+	</select>
+	<!-- 가사를 저장한다. -->
+	<insert id="insertLyric" parameterType="com.Luce.vo.LyricsVO">
+		insert into LYKEY_LYRICS (idx, email, songtitle, singer, lyric) values (lykey_lyrics_idx_seq.nextval, #{email}, #{songTitle}, #{singer}, #{lyric})
+	</insert>
+	<!-- 세션에 저장된 이메일과 일치하는 가사 데이터만 불러온다. -->
+	<select id="selectList" parameterType="String" resultType="com.Luce.vo.LyricsVO" >
+		select * from LYKEY_LYRICS where email = #{email} order by saved_date desc
+	</select>
+	<!-- 노래제목으로 노래가사를 찾아 리턴한다. -->
+	<select id="selectLyrics" parameterType="int" resultType="String">
+		select lyric from LYKEY_LYRICS where idx = #{idx}
+	</select>
+	<!-- idx가 일치하는 노래가사를 삭제한다. -->
+	<delete id="delete" parameterType="int">
+		delete from LYKEY_LYRICS where idx = #{idx}
+	</delete>
+</mapper>
+
+
+
+	
+
+
+
+
+
+
+
+
