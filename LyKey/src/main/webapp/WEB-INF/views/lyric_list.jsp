@@ -38,6 +38,11 @@ pageEncoding="UTF-8"%>
       .item1, .item2{
       	padding: 20px;
       }
+      #songTitle:hover {
+		background-color: #4287f5;
+		font-weight: bold;
+		color: white;
+}
     </style>
   </head>
   <body>
